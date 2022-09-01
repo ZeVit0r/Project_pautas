@@ -1,9 +1,10 @@
 package br.com.pautas.model;
 
 import java.sql.Date;
-import java.time.Instant;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,27 +15,27 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    
-    @Column(unique = true)
-    private String username;
+@Table(name = "schedule")
+public class Schedule {
 
-    private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String date;
+    @ElementCollection
+    private List<String> nameParties;
+    private String numberProcess;
+    private String nameMinister;
+    private String resumeSchedule;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
