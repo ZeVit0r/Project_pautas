@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,22 +26,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "schedule")
-public class Schedule {
-
+@Table(name = "process")
+public class Process {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long OutroId;
+    @ElementCollection
+    private List<String> nameParties;
+    private String numberProcess;
+    private String nameMinister;
+    private String resumeSchedule;
 
     @ManyToOne
-    @JoinColumn(name = "judgment_date_id")
-    private JudgmentDate judgmentDate;
-
-    @OneToMany(mappedBy = "schedule")
-    @ElementCollection
-    private List<Process> process;
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

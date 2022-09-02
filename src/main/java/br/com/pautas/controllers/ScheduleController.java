@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.pautas.model.JudgmentDate;
 import br.com.pautas.model.Schedule;
+import br.com.pautas.repository.JudgmentDateRepository;
 import br.com.pautas.repository.ScheduleRepository;
 
 @RestController
@@ -22,9 +24,19 @@ public class ScheduleController {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
+    @Autowired
+    private JudgmentDateRepository judgmentDateRepository;
+
     @PostMapping("/")
     public ResponseEntity<Schedule> schedule(@RequestBody Schedule schedule) {
-        return ResponseEntity.ok(scheduleRepository.save(schedule));
+
+        if(schedule.getOutroId() != null){
+        }
+        
+        System.out.println(schedule.getOutroId());
+
+        // return ResponseEntity.ok(scheduleRepository.save(schedule));
+        return null;
     }
 
     @GetMapping("/")

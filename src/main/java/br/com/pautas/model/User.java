@@ -1,7 +1,6 @@
 package br.com.pautas.model;
 
 import java.sql.Date;
-import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
