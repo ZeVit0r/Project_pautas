@@ -1,5 +1,6 @@
 package br.com.pautas.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,21 +30,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "process")
-public class Process {
+public class Process implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ElementCollection
+    @Column()
     private List<String> nameParties;
+    @Column(nullable = false, length = 50)
     private String numberProcess;
+    @Column(nullable = false, length = 120)
     private String nameMinister;
-    private String resumeSchedule;
+    @Column(nullable = false, length = 500)
+    private String resumeProcess;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+    @JoinColumn(name = "judgment_id", nullable=false)
+    private JudgmentDate judgmentDate;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
