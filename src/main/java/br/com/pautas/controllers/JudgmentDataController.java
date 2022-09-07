@@ -17,8 +17,8 @@ import br.com.pautas.model.JudgmentDate;
 import br.com.pautas.services.JudgmentDateService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/judgmentData")
+@CrossOrigin(origins = "*")
+@RequestMapping("/judgmentDate")
 public class JudgmentDataController {
 
     final JudgmentDateService judgmentDateService;
@@ -32,7 +32,7 @@ public class JudgmentDataController {
         return ResponseEntity.ok(judgmentDateService.save(judgmentDate));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<JudgmentDate>> judgmentDate(){
         return ResponseEntity.ok(judgmentDateService.all());
     }
