@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ public class UserController {
         this.encoder = encoder;
     }
     
+    @CrossOrigin
     @GetMapping("/{id}")
     public User user(@PathVariable("id") Long id) {
         Optional<User> userFind = this.userRepository.findById(id);
@@ -43,17 +45,20 @@ public class UserController {
 
     }
 
-    @PostMapping("/")
+    @CrossOrigin
+    @PostMapping
     public ResponseEntity<User> user(@RequestBody User user){
         user.setPassword(encoder.encode(user.getPassword()));
         return ResponseEntity.ok(userRepository.save(user));
     }
 
+    @CrossOrigin
     @GetMapping("/list")
     public ResponseEntity<List<User>> list(){
         return ResponseEntity.ok(userRepository.findAll());
     }
 
+    @CrossOrigin
     @GetMapping("/validatepassword")
     public ResponseEntity<Boolean> validatePassword(@RequestParam String username, @RequestParam String password) {
 

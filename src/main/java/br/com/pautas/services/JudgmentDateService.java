@@ -23,7 +23,9 @@ public class JudgmentDateService {
 
     @Transactional
     public JudgmentDate save(JudgmentDate judgmentDate){
+
         return judgmentDateRepository.save(judgmentDate);
+ 
     }
 
     public List<JudgmentDate> all(){

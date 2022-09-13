@@ -2,6 +2,7 @@ package br.com.pautas.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pautas.model.JudgmentDate;
+import br.com.pautas.repository.JudgmentDateRepository;
 import br.com.pautas.services.JudgmentDateService;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/judgmentDate")
 public class JudgmentDataController {
 
@@ -27,16 +28,27 @@ public class JudgmentDataController {
         this.judgmentDateService = judgmentDateService;
     }
 
+    @Autowired
+    private JudgmentDateRepository judgmentDateRepository;
+
+    @CrossOrigin
     @PostMapping
-    public ResponseEntity<JudgmentDate> judgmentDate(@RequestBody JudgmentDate judgmentDate){
-        return ResponseEntity.ok(judgmentDateService.save(judgmentDate));
+    public ResponseEntity<Object> judgmentDate(@RequestBody JudgmentDate judgmentDate){
+        var teste = judgmentDateRepository.findByDate(judgmentDate.getDate());
+        if(teste == null){
+            return ResponseEntity.ok(judgmentDateService.save(judgmentDate));
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
     }
 
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<JudgmentDate>> judgmentDate(){
-        return ResponseEntity.ok(judgmentDateService.all());
+        return ResponseEntity.ok(judgmentDateRepository.findAll());
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> judgmentDate(@PathVariable("id") Integer id){
         judgmentDateService.delete(id);

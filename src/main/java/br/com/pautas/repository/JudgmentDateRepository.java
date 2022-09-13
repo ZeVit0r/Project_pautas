@@ -8,6 +8,5 @@ import br.com.pautas.model.JudgmentDate;
 
 @Repository
 public interface JudgmentDateRepository extends JpaRepository<JudgmentDate, Integer>{
-
-
+    String findByDate(String date);
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,8 @@ public class ProcessController {
         this.judgmentDateService = judgmentDateService;
     }
 
-    @PostMapping("/")
+    @CrossOrigin
+    @PostMapping
     public ResponseEntity<Object> process(@RequestBody ProcessDto processDto){
 
         Process process = new Process();
@@ -58,17 +60,20 @@ public class ProcessController {
 
     }
 
-    @GetMapping("/")
+    @CrossOrigin
+    @GetMapping
     public ResponseEntity<List<Process>> process(){
         return ResponseEntity.status(HttpStatus.OK).body(processService.findAll());
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Process> process(@PathVariable("id") Long id, @RequestBody ProcessDto processDto) {
 
         return null;
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Process> process(@PathVariable("id") Long id) {
 
